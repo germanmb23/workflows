@@ -1,32 +1,32 @@
-name: Calenster - Call API Every Hour
+# name: Calenster - Call API Every Hour
 
-on:
-  schedule:
-    # - cron: "0 * * * *" # Cada hora en punto
-    - cron: "*/30 * * * *" # Cada 10 minutos
-    # - cron: "0 11-23 * * *" # 8:00 a 20:00 Uruguay (UTC-3)
-  workflow_dispatch: # Permite ejecutarlo manualmente también
+# on:
+#   schedule:
+#     # - cron: "0 * * * *" # Cada hora en punto
+#     - cron: "*/30 * * * *" # Cada 10 minutos
+#     # - cron: "0 11-23 * * *" # 8:00 a 20:00 Uruguay (UTC-3)
+#   workflow_dispatch: # Permite ejecutarlo manualmente también
 
-jobs:
-  call-api:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Call API
-        # run: curl -X GET https://calenster-server.uc.r.appspot.com/api/ping/github-workflow-repository
-        run: |
-          echo "Haciendo ping a calenster-server..."
-          for i in {1..3}; do
-            STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://calenster-server.uc.r.appspot.com/api/github-workflow-repository)
-            echo "Intento $i: HTTP $STATUS"
-            if [ "$STATUS" -eq 200 ]; then
-              echo "Servidor respondió OK."
-              break
-            fi
-            if [ "$i" -lt 3 ]; then
-              echo "Esperando 15 segundos antes de reintentar..."
-              sleep 15
-            else
-              echo "Servidor no respondió correctamente después de 3 intentos."
-              exit 1
-            fi
-          done
+# jobs:
+#   call-api:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Call API
+#         # run: curl -X GET https://calenster-server.uc.r.appspot.com/api/ping/github-workflow-repository
+#         run: |
+#           echo "Haciendo ping a calenster-server..."
+#           for i in {1..3}; do
+#             STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://calenster-server.uc.r.appspot.com/api/github-workflow-repository)
+#             echo "Intento $i: HTTP $STATUS"
+#             if [ "$STATUS" -eq 200 ]; then
+#               echo "Servidor respondió OK."
+#               break
+#             fi
+#             if [ "$i" -lt 3 ]; then
+#               echo "Esperando 15 segundos antes de reintentar..."
+#               sleep 15
+#             else
+#               echo "Servidor no respondió correctamente después de 3 intentos."
+#               exit 1
+#             fi
+#           done

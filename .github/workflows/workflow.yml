@@ -1,0 +1,14 @@
+name: Call API Every Hour
+
+on:
+  schedule:
+    # - cron: "0 * * * *" # Cada hora en punto
+    - cron: "*/10 * * * *" # Cada 10 minutos
+  workflow_dispatch: # Permite ejecutarlo manualmente también
+
+jobs:
+  call-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call API
+        run: curl -X GET https://calenster-server.uc.r.appspot.com/api/ping/wpp

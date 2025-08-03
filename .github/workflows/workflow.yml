@@ -3,7 +3,7 @@ name: Calenster - Call API Every Hour
 on:
   schedule:
     # - cron: "0 * * * *" # Cada hora en punto
-    - cron: "*/10 * * * *" # Cada 10 minutos
+    - cron: "*/30 * * * *" # Cada 10 minutos
     # - cron: "0 11-23 * * *" # 8:00 a 20:00 Uruguay (UTC-3)
   workflow_dispatch: # Permite ejecutarlo manualmente también
 
@@ -16,7 +16,7 @@ jobs:
         run: |
           echo "Haciendo ping a calenster-server..."
           for i in {1..3}; do
-            STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://calenster-server.uc.r.appspot.com/api/ping/wpp)
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://calenster-server.uc.r.appspot.com/api/github-workflow-repository)
             echo "Intento $i: HTTP $STATUS"
             if [ "$STATUS" -eq 200 ]; then
               echo "Servidor respondió OK."
